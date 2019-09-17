@@ -1,0 +1,12 @@
+---
+name: Daniel Kirkland
+title: "Music Insights"
+output: html_notebook
+---
+
+First we need to use Tidyverse for data import.
+
+```{r}
+  library(tidyverse)
+```
+
