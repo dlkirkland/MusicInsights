@@ -72,30 +72,72 @@ Creating a tibble for our table "Favorite_song" using column data from preferenc
   View(Favorite_song)
   
 ```
-Creating a tibble for our table "Favorite Song", using column data for each column we want to include in our table.  
 
-```{r}
-  View(preferences)  
-  Favorite_Song<-
-```
+Changing date time format.  
 
 ```{r}
   library(readr)
   ?parse_datetime
-  Person$time_submitted <- as.POSIXlt(parse_datetime(Person$time_submitted, format="%m/%d/&Y %H:%M"))
+  Person$time_submitted <- as.POSIXlt(parse_datetime(Person$time_submitted, format="%m/%d/%y %H:%M"))
   
   View(Person)
 
 ```
 
+Observing factors for academic_level
+
+```{r}
+  levels(Person$academic_level)
+
+```
+Convert the column to a factor column. 
+
+```{r}
+  Person$academic_level <- as.factor(Person$academic_level)
+  levels(Person$academic_level)
+```
+
+Observe factors for academic_major
 
 
+```{r}
+  Person$academic_major <- as.factor(Person$academic_major)
+  levels(Person$academic_major)
 
+```
+Change some values (factors) for Person$academic_major, ex. remove one of the CIS entries: Computer information systems (or) Computer Information Systems. 
 
+We're making a comparison change.  If you see this/these, change it to this to new value/s. Also, change it in the list of levels.    
 
+```{r}
+  levels(Person$academic_major)[levels(Person$academic_major) == "Computer     information systems"] <- "Computer Information Systems"
+  levels(Person$academic_major)
+```
 
+Create a "ratings" table. Variables will be: pseudonym, artist_song, rating.  
 
+First, create a copy of 'preference' and tranform the table. 
 
+```{r}
+  preferences_copy <- preferences
+  View(preferences_copy)
+
+```
+Now transform the 'preferences_copy' table's artist_song columns into one column.
+
+```{r}
+  gather(preferences_copy, key = "artist_song", value = "rating", 3:45)
+  View(preferences_copy)
+```
+
+Create a tibble from the 'preferences_copy' dataframe. 
+
+```{r}
+   Ratings <- tibble(pseudonym = preferences_copy$pseudonym, artist_song = preferences_copy$artist_song, rating = preferences_copy$rating)
+  
+  View(Ratings) 
+
+```
 
 
 
